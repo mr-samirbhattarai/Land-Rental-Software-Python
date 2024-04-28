@@ -1,0 +1,11 @@
+101, Kathmandu, North, 4, 50000, Available
+928, Syangja, West, 9, 19000, Available
+685, Lalitpur, South, 10, 100000, Available
+563, Biratnagar, South-East, 7, 60000, Available
+842, Pokhara, East, 5, 60000, Available
+316, Baglung, South, 11, 25000, Available
+409, Nepalgung, North, 6, 62000, Available
+189, Tanahun, East, 4, 11000, Available
+910, Surkhet, North_West, 14, 97600, Available
+108, Kusma, South, 3, 6000, Not Available
+297, Jhapa, West, 7, 19200, Not Available
