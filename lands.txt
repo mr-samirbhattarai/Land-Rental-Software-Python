@@ -7,5 +7,5 @@
 409, Nepalgung, North, 6, 62000, Available
 189, Tanahun, East, 4, 11000, Available
 910, Surkhet, North_West, 14, 97600, Available
-108, Kusma, South, 3, 6000, Not Available
-297, Jhapa, West, 7, 19200, Not Available
+108, Kusma, South, 3, 6000, Available
+297, Jhapa, West, 7, 19200, Available

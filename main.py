@@ -1,11 +1,8 @@
-
-# from operations import display_data, rent_land, return_land
 import operations
-import write
+"""
+main module
 
-
-
-""""""
+"""
 
 
 
@@ -29,19 +26,29 @@ while(True):
                                 ||*******************************************************||""")
     try:
         user_input = int(input("\t\t\t\t\t\tEnter your choice:  "))
-
-        if (user_input) == 1:
-            operations.display_data()
-        elif (user_input) == 2:
-            operations.rent_land()
-        elif (user_input) == 3:
-            operations.return_land()
-        elif (user_input) == 4:
-            break
-        else:
-            print("""
-                    Invalid Input!
-                Please Enter Valid Value""")
     except Exception as exception:
-        print(f"Cannot load land. Please Try again. Exception {exception}")
+        print("""
+                                ||*******************************************************||
+                                ||                                                       ||
+                                ||                    Invalid Input!                     ||
+                                ||               Please Enter Correct Value              ||
+                                ||                                                       ||
+                                ||                                                       ||
+                                ||*******************************************************||
+                                
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
+        
+    if (user_input) == 1:
+        operations.display_data()
+    elif (user_input) == 2:
+        operations.rent_land()
+    elif (user_input) == 3:
+        operations.return_land()
+    elif (user_input) == 4:
+        break
+    else:
+        print("""
+                Invalid Input!
+            Please Enter Valid Value""")
+    
         
