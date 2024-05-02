@@ -24,20 +24,9 @@ while(True):
                                 ||                     3. Return Land                    ||
                                 ||                     4. Exit Program                   ||
                                 ||*******************************************************||""")
-    try:
-        user_input = int(input("\t\t\t\t\t\tEnter your choice:  "))
-    except Exception as exception:
-        print("""
-                                ||*******************************************************||
-                                ||                                                       ||
-                                ||                    Invalid Input!                     ||
-                                ||               Please Enter Correct Value              ||
-                                ||                                                       ||
-                                ||                                                       ||
-                                ||*******************************************************||
-                                
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-        
+    # try:
+    user_input = int(input("\t\t\t\t\t\tEnter your choice:  "))
+    
     if (user_input) == 1:
         operations.display_data()
     elif (user_input) == 2:
@@ -45,10 +34,20 @@ while(True):
     elif (user_input) == 3:
         operations.return_land()
     elif (user_input) == 4:
-        break
+        print("--------------------------EXITING PROGRAM-------------------------")
+        break       #Exit loop and program
     else:
         print("""
                 Invalid Input!
             Please Enter Valid Value""")
-    
-        
+#     except Exception as exception:
+#         print("""
+#                                 ||*******************************************************||
+#                                 ||                                                       ||
+#                                 ||                    Invalid Input!                     ||
+#                                 ||               Please Enter Correct Value              ||
+#                                 ||                                                       ||
+#                                 ||                                                       ||
+#                                 ||*******************************************************||
+                                
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
