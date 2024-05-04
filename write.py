@@ -26,14 +26,12 @@ def write_to_file(lands_data):
     
         
         
-def rent_bill(lands_data, rented_land, kitta_num, customer_name, customer_address, customer_ph_no, selected_land, rental_duration):
+def rent_bill(lands_data, rented_land, kitta_num, customer_name, customer_address, customer_ph_no, rental_duration):
     """
     create rent bill
     returns: bill
     """
-    
-    
-    print(rented_land)
+
     # date and time
     date_year = datetime.datetime.now().year
     date_month = datetime.datetime.now().month
@@ -43,8 +41,8 @@ def rent_bill(lands_data, rented_land, kitta_num, customer_name, customer_addres
     time_minute = datetime.datetime.now().minute
     
     total_amount = 0
-    for land in rented_land:
-        total_amount += float(float(land[4]) * float(land[6]))
+    for land, duration in rented_land:
+        total_amount += float(float(land[4]) * float(duration))
     
     
     # total_amount = sum((float(land[4]) * float(rental_duration)) for land in rented_land)
@@ -72,12 +70,11 @@ def rent_bill(lands_data, rented_land, kitta_num, customer_name, customer_addres
     
     bill_middle = ""
     sn = 1
-    for land in rented_land:
-        bill_middle += f"""||| {sn:^4} |  {land[0]:^8} | {land[1]:^12} | {land[2]:^13} | {land[3]:^4} | {land[6]:^8} | {land[4]:^12}|||\n"""
+    for land, duration in rented_land:
+        bill_middle += f"""||| {sn:^4} |  {land[0]:^8} | {land[1]:^12} | {land[2]:^13} | {land[3]:^4} | {duration:^8} | {land[4]:^12}|||\n"""
         sn += 1
     
-    bill_footer = f"""
-|||---------------------------------------------------------------------------------|||
+    bill_footer = f"""|||---------------------------------------------------------------------------------|||
 ||                                                                                   ||
 ||                                                   Total Amount:    {total_amount:<15}||
 ||                                                    VAT Amount :    {0.13 * total_amount:<15}||
@@ -99,7 +96,7 @@ def rent_bill(lands_data, rented_land, kitta_num, customer_name, customer_addres
     return bill
 
             
-def return_bill(lands_data, rented_land, kitta_num, customer_name, customer_address, customer_ph_no, selected_land, rented_duration, returned_duration):
+def return_bill(lands_data, rented_land, kitta_num, customer_name, customer_address, customer_ph_no):
     # date and time
     date_year = datetime.datetime.now().year
     date_month = datetime.datetime.now().month
@@ -111,14 +108,14 @@ def return_bill(lands_data, rented_land, kitta_num, customer_name, customer_addr
     
     
     total_amount = 0
-    for land in rented_land:
+    for land, rent_duration, return_duration in rented_land:
         # total price of land
-            if(returned_duration == rented_duration):
-                total_amount = (float(land[4]) * rented_duration) - float((land[4])) * returned_duration     # price of that land X months
-            elif(returned_duration > rented_duration):
-                total_amount = (((float(land[4]) * returned_duration) - (float((land[4])) * returned_duration)) + (0.40 * float(land[4])))         # 40% fine added for late submission
-            else:
-                print("Please Enter Correct Value")
+        if(return_duration == rent_duration):
+            total_amount += (float(land[4]) * rent_duration) - float((land[4])) * return_duration     # price of that land X months
+        elif(return_duration > rent_duration):
+            total_amount += ((float(land[4]) * return_duration) - (float((land[4])) * return_duration)) + (0.40 * float(land[4]))         # 40% fine added for late submission
+        else:
+            print("Please Enter Correct Value")
     
     # Generate invoice
     bill_top = f"""
@@ -142,14 +139,13 @@ def return_bill(lands_data, rented_land, kitta_num, customer_name, customer_addr
     
     bill_middle = ""
     sn = 1
-    for land in rented_land:
-        bill_middle += f"""||| {sn:^4} |  {land[0]:^8} | {land[1]:^12} | {land[2]:^13} | {land[3]:^4} | {returned_duration:^8} | {land[4]:^12}|||\n"""
+    for land,rent_duration, return_duration in rented_land:
+        bill_middle += f"""||| {sn:^4} |  {land[0]:^8} | {land[1]:^12} | {land[2]:^13} | {land[3]:^4} | {return_duration:^8} | {land[4]:^12}|||\n"""
         sn += 1
     
-    bill_footer = f"""
-|||---------------------------------------------------------------------------------|||
+    bill_footer = f"""|||---------------------------------------------------------------------------------|||
 ||                                                                                   ||
-||                                                   Total Amount:    {total_amount:<15}||
+||                                            Total Amount (Fine):    {total_amount:<15}||
 ||                                                    VAT Amount :    {0.13 * total_amount:<15}||
 ||                                                   Grand Total :    {total_amount + (0.13 * total_amount):<15}||
 ||                                                                                   ||

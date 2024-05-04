@@ -83,7 +83,7 @@ def rent_land():
         for land in lands_data[0:]:         # data[1:]  from 1 to last index [starting: step: end] slicing concept
             # print(land) #for testing
             if land[0] == kitta_num and land[-1] == " Available":
-                
+                selected_land = land
                 try:
                     rental_duration = int(input("Enter duration (in months) of land to be rented:  "))
                 except Exception as exception:
@@ -91,23 +91,25 @@ def rent_land():
                                 ||*******************************************************||
                                 ||                                                       ||
                                 ||                    Invalid Input!                     ||
-                                ||               Please Enter Correct Value              ||
+                                ||             Please Enter Numerical Value              ||
                                 ||                                                       ||
                                 ||                                                       ||
                                 ||*******************************************************||
                                 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-                selected_land = land
                 break
         if selected_land:
             # land status is set to "Not Available" (if land is rented)
             selected_land[-1] = " Not Available"
             
             # append selected_land in return_land list
-            rented_land.append(selected_land, rental_duration)
+            try:
+                rented_land.append([selected_land, rental_duration])
+            except Exception as exception:
+                print("Try again!")
         else:
             print("land not available!")
-        more_land = input("Do you want to rent another land? (y/n):  ")
+        more_land = input("Do you want to rent another land?\nEnter y to rent another land\nPress any number to return\n\t:  ")
         if more_land.lower().strip() != "y":
             break
         
@@ -116,33 +118,10 @@ def rent_land():
         customer_name = input("Enter your full name:  ")
         customer_address = input("Enter your current address:  ")
         customer_ph_no = input("Enter your phone number:  ")
-            
-        if(customer_name.isdigit() or customer_address.isdigit() or len(customer_ph_no) != 10):
-            print("""
-                                ||*******************************************************||
-                                ||                                                       ||
-                                ||                    Invalid Input!                     ||
-                                ||           Please Enter Correct information            ||
-                                ||                                                       ||
-                                ||                                                       ||
-                                ||*******************************************************||
-                                
-    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-        elif (customer_name == "" or customer_address == "" or customer_ph_no == ""):
-            print("""
-                                ||*******************************************************||
-                                ||                                                       ||
-                                ||                         Invalid !                     ||
-                                ||               Please Enter All information            ||
-                                ||                                                       ||
-                                ||                                                       ||
-                                ||*******************************************************||
-                                
-    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-    
-        else:
-            # print rental invoice
-            print(rent_bill(lands_data,rented_land, kitta_num, customer_name, customer_address, customer_ph_no, selected_land, rental_duration))
+        
+        if (customer_name.isalpha() and customer_address.isalpha() and customer_ph_no.isdigit()):
+             # print rental invoice
+            print(rent_bill(lands_data, rented_land, kitta_num, customer_name, customer_address, customer_ph_no, rental_duration))
 
             # Update lands data in file
             write_to_file(lands_data)
@@ -155,7 +134,28 @@ def rent_land():
                                 ||*******************************************************||
                                 
     --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-            
+        elif (customer_name == "" or customer_address == "" or customer_ph_no == ""):
+            print("""
+                                ||*******************************************************||
+                                ||                                                       ||
+                                ||                         Invalid !                     ||
+                                ||               Please Enter All information            ||
+                                ||                                                       ||
+                                ||                                                       ||
+                                ||*******************************************************||
+                                
+    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
+        else:
+            print("""
+                    ||*******************************************************||
+                    ||                                                       ||
+                    ||                    Invalid Input!                     ||
+                    ||           Please Enter Correct information            ||
+                    ||                                                       ||
+                    ||                                                       ||
+                    ||*******************************************************||
+                    
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")     
     else:
         print("""
                                 ||*******************************************************||
@@ -207,23 +207,22 @@ def return_land():
                                     ||*******************************************************||
                                     ||                                                       ||
                                     ||                    Invalid Input!                     ||
-                                    ||               Please Enter Correct Value              ||
+                                    ||               Please Enter Numerical Value            ||
                                     ||                                                       ||
                                     ||                                                       ||
                                     ||*******************************************************||
                                     
     ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-    
                 break
         if selected_land:
             # land status is set to "Not Available" (if land is rented)
             selected_land[-1] = " Available"
             
             # append selected_land in return_land list
-            rented_land.append(selected_land)
+            rented_land.append([selected_land, rented_duration, returned_duration])
         else:
             print("land already available!")
-        more_land = input("Do you want to rent another land? (y/n):  ")
+        more_land = input("Do you want to rent another land?\nEnter y to rent another land\nPress any key to return\n\t:  ")
         if more_land.lower().strip() != "y":
             break
         
@@ -233,24 +232,13 @@ def return_land():
         customer_address = input("Enter your current address:  ")
         customer_ph_no = input("Enter your phone number:  ")
             
-        if(customer_name.isdigit() or customer_address.isdigit() or len(customer_ph_no) != 10 or customer_ph_no.isalpha()):
-            print("""
-                                ||*******************************************************||
-                                ||                                                       ||
-                                ||                    Invalid Input!                     ||
-                                ||           Please Enter Correct information            ||
-                                ||                                                       ||
-                                ||                                                       ||
-                                ||*******************************************************||
-                                
-    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-        
-        else:
+        if(customer_name.isalpha() and customer_address.isalpha() and customer_ph_no.isdigit()):
             # print rental invoice
-            print(return_bill(lands_data, rented_land, kitta_num, customer_name, customer_address, customer_ph_no, selected_land, rented_duration, returned_duration))
+            print(return_bill(lands_data, rented_land, kitta_num, customer_name, customer_address, customer_ph_no))
 
             # Update lands data in file
             write_to_file(lands_data)
+            
             print("""
                                 ||*******************************************************||
                                 ||                                                       ||
@@ -260,7 +248,28 @@ def return_land():
                                 ||*******************************************************||
                                 
     --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
-            
+        elif (customer_name == "" or customer_address == "" or customer_ph_no == ""):
+            print("""
+                                ||*******************************************************||
+                                ||                                                       ||
+                                ||                         Invalid !                     ||
+                                ||               Please Enter All information            ||
+                                ||                                                       ||
+                                ||                                                       ||
+                                ||*******************************************************||
+                                
+    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")
+        else:
+            print("""
+                    ||*******************************************************||
+                    ||                                                       ||
+                    ||                    Invalid Input!                     ||
+                    ||           Please Enter Correct information            ||
+                    ||                                                       ||
+                    ||                                                       ||
+                    ||*******************************************************||
+                    
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------""")  
     else:
         print("""
                                 ||*******************************************************||
