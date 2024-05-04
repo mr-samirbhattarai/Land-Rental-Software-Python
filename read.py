@@ -3,8 +3,9 @@ def read_file():
     reads file form .txt file
     returns: list (of land details)
     """
+    # Exception Handling
     try:
-        open_file = open("lands.txt")
+        open_file = open("lands.txt")       # open txt file
         
         read_land = open_file.readlines()
         
@@ -14,6 +15,7 @@ def read_file():
             lands_data.append(land_info_list)
         open_file.close()
     except Exception as exception:
+        # Exception message
         print("""
                                 ||*******************************************************||
                                 ||                                                       ||
