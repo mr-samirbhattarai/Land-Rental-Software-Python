@@ -1,9 +1,7 @@
 import operations
 """
 main module
-
 """
-
 
 # Banner
 print("""
@@ -13,9 +11,7 @@ print("""
                        ██    █████    ██      ███████ ██ ██ ██ ██   ██     ██████  ██████  ██   ██ ██████  █████   ██████    ██      ████
                        ██    ██       ██   ██ ██   ██ ██  ████ ██   ██     ██      ██   ██ ██   ██ ██      ██      ██   ██   ██       ██
                        ██    ███████   █████  ██   ██ ██   ███  █████      ██      ██   ██  █████  ██      ███████ ██   ██   ██       ██""")
-                                              
-                                              
-                                              
+                                    
 while(True):
     # Options
     print("""
@@ -44,7 +40,7 @@ while(True):
                 Please Enter Valid Value""")
     except Exception as exception:
         # Exception message
-        print(""" 
+        print("""
                                 ||*******************************************************||
                                 ||                                                       ||
                                 ||                    Invalid Input!                     ||

@@ -118,10 +118,8 @@ def return_bill(lands_data, rented_land, kitta_num, customer_name, customer_addr
     date_year = datetime.datetime.now().year
     date_month = datetime.datetime.now().month
     date_day = datetime.datetime.now().day
-    
     time_hour = datetime.datetime.now().hour
     time_minute = datetime.datetime.now().minute
-    
     
     # calculate total_amount
     total_amount = 0
@@ -130,10 +128,9 @@ def return_bill(lands_data, rented_land, kitta_num, customer_name, customer_addr
         if(return_duration == rent_duration):
             total_amount += (float(land[4]) * rent_duration) - float((land[4])) * return_duration     # price of that land X months
         elif(return_duration > rent_duration):
-            total_amount += ((float(land[4]) * return_duration) - (float((land[4])) * return_duration)) + (0.40 * float(land[4]))         # 40% fine added for late submission
+            total_amount += ((float(land[4]) * return_duration) - (float((land[4])) * rent_duration)) + (0.40 * float(land[4]))         # 40% fine added for late submission
         else:
             print("Please Enter Correct Value")
-    
     # Generate invoice
     # invoice header
     bill_top = f"""
